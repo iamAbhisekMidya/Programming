@@ -1,0 +1,13 @@
+Equalto:              =:=
+Not Equal:            \==
+Grater Equal:         =>
+Less Equal:           <=
+And:                   ,
+Or:                    ;
+
+Basic:                +,-,*,/,mod
+
+
+
+
+

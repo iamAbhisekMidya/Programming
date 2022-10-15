@@ -1,0 +1,95 @@
+q2([X,Y|_]):- X=:=Y.
+
+q5([_|T],N):- q5(T,N1),N is N1 + 1.
+q5([],0).
+
+q3(L):- q5(L,N), N =:= 2.
+
+q4(L1,L2):- q5(L1,N1),q5(L2,N2),N1=:=N2.
+
+q6([_|L],X):- q6(L,X).
+q6([X],X).
+
+q7([_|T],X,Y):- q7(T,X,Y).
+q7([X,Y|_],X,Y).
+q7([Y,X|_],X,Y).
+
+q8([_|T],X):- q8(T,X).
+q8([X|_],X).
+
+q9([],X,X).
+q9([H|T1],T2,[H|T3]):-
+    q9(T1,T2,T3).
+
+q10([H|T],X):- q10(T,X1),append(X1,[H],X).
+q10([],[]).
+
+q11(L):- q10(L,L1),L1==L.
+
+q13(0,X):- write(X).
+q13(X,0):- write(X).
+q13(X,Y):-
+    X>Y, X1 is X-Y, q13(X1,Y);
+    Y>X, Y1 is Y-X, q13(X,Y1);
+    write(X).
+
+q14(X,Y):- X>=Y, write(X).
+q14(X,Y):- Y>X,write(Y).
+
+q15([H|T]):- maxx([H|T],H).
+
+maxx([H|T],X):-
+    H>X,
+    X1 is H,
+    maxx(T,X1);
+    maxx(T,X).
+maxx([],X):-
+    write(X).
+
+q16([X,Y|T]):-
+    X=<Y,
+    q16([Y|T]).
+q16([]).
+q16([_]).
+
+q17([],[]).
+q17([H|T],R):-
+    member(H,T),!,
+    q17(T,R).
+q17([H|T],[H|R]):-
+    q17(T,R).
+
+q19(N):-
+    sq(N,1,N//2).
+
+sq(N,X,Y):-
+    X<Y,
+    Z is X**2,
+    N=:=Z,
+    write(X);
+    X<Y,
+    X1 is X+1,
+    sq(N,X1,Y).
+
+q20(0,_):-write('0').
+q20(_,0):- write('invalid').
+q20(X,Y):-
+    Z is X//Y,
+    Z1 is Z*Y,
+    R is X-Z1,
+    write(R).
+
+q24(N,M):-
+    N>M,pr1(N,M);
+    M>N,pr2(N,M).
+
+pr1(N,M):-
+    N>=M,
+    write(N),nl,
+    N1 is N-1,
+    pr1(N1,M).
+pr2(N,M):-
+    N=<M,
+    write(N),nl,
+    N1 is N+1,
+    pr2(N1,M).

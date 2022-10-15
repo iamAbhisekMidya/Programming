@@ -1,0 +1,516 @@
+1. Relation
+
+Ans)
+
+parent(Name,C):-
+    father(Name,C);mother(Name,C).
+
+grandparent(Name,C):-
+    parent(Name,X),parent(X,C).
+
+grandchild(Name,C):-
+    parent(C,X),parent(X,Name).
+
+sister(Name,X):-
+    parent(Y,X),parent(Y,Name),female(Name),Name\==X.
+
+
+2. Write a prolog program to determine whether in a list, the first two elements are same.
+
+Ans)
+
+check_equal([X,Y|T]):-X =:= Y.
+
+
+3. Write a prolog program that checks whether a list does not contain exactly two elements.
+
+Ans)
+
+check([],0).
+check([_|Tail],N):-check(Tail,N1),N is N1+1.
+check_list_length([H|T]):-check([H|T],N),N=\=2.
+
+
+4. Write a prolog program to determine whether the two lists are of same length.
+
+Ans) 
+
+start:-
+	write('Enter a list'),nl,
+	read(L1),
+	write('Enter another list'),nl,
+	read(L2),
+	list_length(L1,N1),list_length(L2,N2),
+	N1=:=N2.
+
+list_length([],0).
+list_length([_|TAIL],N):-list_length(TAIL,N1),N is N1+1.
+
+
+5. Write a prolog program to determine length of a list.
+
+Ans)
+
+list_length([],0).
+list_length([_|TAIL],N):-list_length(TAIL,N1),N is N1+1.
+
+
+6. Write a prolog program to find the last element of a list.
+
+Ans)
+
+my_last(X,[X]).
+my_last(X,[_|TAIL]):-my_last(X,TAIL).
+
+
+
+7. Write a prolog program to check whether two elements are consecutive elements in a list.
+
+Ans)
+
+check( [Y, X|_], X, Y ).
+check( [X, Y|_], X, Y ).
+check( [_|T], X, Y) :- check(T, X, Y).
+
+
+8. Write a prolog program to determine whether an element is a member of a list
+
+Ans)
+
+list_member(X,[X|_]).
+list_member(X,[_|TAIL]):-list_member(X,TAIL).
+
+
+9. Write a prolog program to append two lists to generate a 3rd list
+
+Ans)
+
+concat([],L2,L2).
+concat([H|L1],L2,[H|L3]):-concat(L1,L2,L3).
+
+
+10. Write a prolog program to reverse a list
+
+Ans)
+
+cal([],[]).
+cal([H|T], L) :- cal(T, L1), append(L1,[H],L).
+
+
+11. Write a prolog program to determine whether a list is a palindrome.
+
+Ans)
+
+is_palindrome(L) :- reverse(L,L).
+
+
+12. Write a program in PROLOG for sum, subtraction, multiplication, division, square root using function.
+
+Ans)
+
+sum(X,Y,Z):-Z is X+Y.
+subtraction(X,Y,Z):-Z is X-Y.
+multiplication(X,Y,Z):- Z is X*Y.
+division(X,Y,Z):-Z is X/Y.
+squareroot(X,Y):-Y is sqrt(X).
+
+
+13. Write a prolog program to find gcd of two +ve integers.
+
+Ans)
+
+Method-1
+
+gcd(0,B,X):-X is B.
+gcd(A,0,X):-X is A.
+gcd(A,B,X):-A>B,gcd(B,A,X).
+gcd(A,B,X):-A<B,T is B mod A,gcd(A,T,X).
+
+
+Method-2
+
+program:-
+    write('Enter first number: '),read(X),
+    write('Enter second number: '),read(Y),
+    gcd(X,Y).
+
+gcd(X,Y):-
+    X>Y,D is X-Y,gcd(Y,D);
+    Y>X,D is Y-X,gcd(X,D);
+    write('GCD is '),write(X).
+
+
+14. Write a prolog program to find the maximum between two numbers.
+
+Ans)
+
+max(X,Y,Y):-X=<Y.
+max(X,Y,X):-X>Y.
+
+
+15. Write a prolog program to find the maximum number of a list.
+
+Ans)
+
+max_list([],0).
+max_list([H],H).
+max_list([H|Tail],Max):-max_list(Tail,Maxrest),max(H,Maxrest,Max).
+max(X,Y,Y):-X=<Y.
+max(X,Y,X):-X>Y.
+
+
+16. Write a prolog program to check whether a list is ordered list.
+
+Ans)
+
+ordered( [] ) .
+ordered( [_] ) .
+ordered( [X,Y|Z] ) :- X =< Y , ordered( [Y|Z] ) .
+
+
+17. Write a prolog program to remove duplicate element from a list.******
+
+Ans)
+
+compress([],[]).
+compress([X],[X]).
+compress([X,X|T],Z) :- compress([X|T],Z).
+compress([X,Y|T],[X|Z]) :- X \= Y, compress([Y|T],Z).
+
+
+
+19. Write a prolog program to find the square root of a number using function. 
+
+Ans)
+
+sq(X):-
+  Y is sqrt(X),write(Y).
+
+
+20. Write a prolog program to find the modulus of two number using function.
+
+Ans)
+
+md(X,Y):-
+  Z is X mod Y,write(Z).
+
+21. Write a prolog program to find the cube of a number
+
+Ans)
+
+qb(X):-
+  Y is X*X*X, write(Y).
+
+
+22. Write a prolog program whether a number is positive or negative or zero.
+
+Ans)
+
+num(X):-
+  X =:= 0,write('Zero');
+  X > 0, write('Positive');
+  X < 0, write('Negative').
+
+
+23. Write a prolog program to find even-odd number using function
+
+Ans)
+
+evenodd(X):-
+  X mod 2 =:= 0,write('Even');
+  write('Odd').
+
+
+24. Write a prolog program to print n to m numbers using for loop.
+
+Ans)
+
+print(X,Y):-
+  X<Y,pr1(X,Y);
+  X>Y,pr2(X,Y).
+
+pr2(X,Y):-
+  X>=Y,
+  write(X),write(', '),
+  Z is X-1,
+  pr2(Z,Y).
+
+pr1(X,Y):-
+  X=<Y,
+  write(X),write(', '),
+  Z is X+1,
+  pr1(Z,Y).
+
+
+25. Write a program to calculate the sum of n natural numbers.
+
+Ans)
+
+program:-
+    write('Enter value of n: '),read(N),
+    sum(N,0).
+
+sum(N,S):-
+    N>0,P is S+N,X is N-1,sum(X,P);
+    write('Sum is '),write(S).
+
+
+26. Write a prolog program to find the sum of square of each number of n natural number.
+
+Ans)
+
+cal(X):-
+  Y is X*(X+1)*(2*X+1)/6, write(Y).
+
+
+
+28. Write a prolog program to find factorial of a number.
+
+Ans)
+
+cal(X):-cal(X,1).
+cal(X,Z):-
+  X>0,
+  Y is X*Z,
+  A is X-1,
+  cal(A,Y);
+  write(Z).
+
+
+29. Write a prolog program to find Fibonacci series.
+
+Ans)
+
+go:-
+  write('Enter a number: '), read(N), nl,
+  write('Fibonacci series for '), write(N), write(' elements is : '),nl,
+  A is 0,
+  B is 1,
+  write(A), write(' '),write(B), write(' '),
+  fibonacci(N,A,B).
+
+fibonacci(N,A,B):-
+  N<2;
+  C is A+B,
+  write(C), write(','),
+  D is B,
+  E is C,
+  N1 is N-1,
+  fibonacci(N1,D,E).
+
+
+100. Drop every N'th element from a list.  ***
+
+Ans)
+
+drop(L1,N,L2) :- drop(L1,N,L2,N).
+drop([],_,[],_).
+drop([_|Xs],N,Ys,1) :- drop(Xs,N,Ys,N).
+drop([X|Xs],N,[X|Ys],K) :- K > 1, K1 is K - 1, drop(Xs,N,Ys,K1).
+
+
+101. Find the K'th element of a list
+
+Ans)
+
+element_at(X,[X|_],1).
+element_at(X,[_|L],K) :- K > 1, K1 is K - 1, element_at(X,L,K1).
+
+
+102. Find the last element of a list
+
+Ans)
+
+my_last(X,[X]).
+my_last(X,[_|L]) :- my_last(X,L).
+
+
+103. Determine whether a given integer number is prime. ****
+
+Ans)
+
+is_prime(2).
+is_prime(3).
+is_prime(P) :- integer(P), P > 3, P mod 2 =\= 0, \+ has_factor(P,3).  
+
+has_factor(N,L) :- N mod L =:= 0.
+has_factor(N,L) :- L * L < N, L2 is L + 2, has_factor(N,L2).
+
+
+104. Remove the K'th element from a list.****
+
+Ans)
+
+remove_at(X,[X|Xs],1,Xs).
+remove_at(X,[Y|Xs],K,[Y|Ys]) :- K > 1, 
+   K1 is K - 1, remove_at(X,Xs,K1,Ys).
+
+
+105. Two numbers are coprime.
+
+Ans)
+
+gcd(A, A, A).
+gcd(A, B, G) :- A > B,
+  C is A - B,
+  gcd(C, B, G).
+gcd(A, B, G) :- A < B,
+  C is B - A,
+  gcd(A, C, G).
+
+coprime(A, B) :- gcd(A, B, 1).
+
+
+105. Prime Factor.****
+
+Ans)
+
+prime_factors(N,L) :- 
+N > 0, prime_factors(N,L,2).
+prime_factors(1,[],_) :- !.
+prime_factors(N,[F|L],F) :- 
+ R is N // F, N =:= R * F, !, prime_factors(R,L,F).
+prime_factors(N,L,F) :- 
+ next_factor(N,F,NF), prime_factors(N,L,NF).
+next_factor(_,2,3) :- !.
+next_factor(N,F,NF) :- F * F < N, !, NF is F + 2.
+next_factor(N,_,N). 
+
+
+106.  Insertion Sort***
+
+Ans)
+
+insort([],[]).
+insort([H|T], S) :- insort(T,S1), insert(H,S1,S).
+insert(F,[R|Y],[R|Z]) :- F @> R, insert(F, Y, Z).
+insert(F, Y, [F|Y]).
+
+
+107. Binary Search.***
+
+Ans)
+
+binsearch(List,Val) :- evendiv(_,[Val|_], List), write('Element found'),!. 
+binsearch(List,Val) :- evendiv(_, [Mid|Second], List), 
+ Mid < Val, Second \== [], 
+ binsearch(Second, Val). 
+binsearch(List,Val) :- evendiv(First, [Mid|_], List), 
+ Mid > Val, First \== [], 
+ binsearch(First, Val). 
+evendiv(First,Second,X) :- combine(First,Second,X), 
+ lengthlist(First,F), 
+ lengthlist(Second,S), 
+ S >= F, S-F =< 1. 
+combine([],R,R). 
+combine([H|L1],L2,[H|L3]) :- combine(L1,L2,L3). 
+lengthlist([],0). 
+lengthlist([_|X], N) :- lengthlist(X,N1) , N is N1+1 . 
+checkmember(X,[X|_]).
+checkmember(X,[_|Y]) :- checkmember(X,Y).
+
+
+108. Quick Sort.***
+
+Ans)
+
+qsort([],[]).
+qsort([H|T],S) :- part1(H,T,L,R),
+ qsort(L,Ls),
+ qsort(R,Rs),
+ appending1(Ls,[H|Rs],S). 
+part1(_,[],[],[]). 
+part1(H,[X|T],[X|L],G) :- X =< H, part1(H,T,L,G). 
+part1(H,[X|T],L,[X|G]) :- X @> H, part1(H,T,L,G). 
+appending1([],Rs,Rs). 
+appending1([X|Ls],Rs,[X|S]) :- appending1(Ls,Rs,S).
+
+109. Linear Search.
+
+Ans)
+
+search([H|_],R) :- H=:=R, write('Element found'),!. 
+search([H|T],R) :- H\==R, search(T,R). 
+search([],_) :- write('Element not found').
+
+
+110.  Write a Prolog Program to check if a list is a subset of an existing list or not.****
+
+Ans)
+
+checksubset(_,[]).
+checksubset(L,[H|T]) :- member1(H,L), checksubset(L,T).
+member1(X,[X|_]).
+member1(X,[_|T]) :- member1(X,T).
+
+
+111.  Write a Prolog Program to print the occurrence of each element in a list.****
+
+Ans)
+
+freq(List) :- List1 = List, unique(List,Newlist),
+ List = List1,freqcount(List,Newlist).
+freqcount(_,[]).
+freqcount(ExistingList, [Head|Tail]) :- List2 = ExistingList,
+ count(ExistingList,Head,Occurrence),
+ write(Head), write(' --> ') ,write(Occurrence), write('\n'),
+ ExistingList = List2, freqcount(ExistingList,Tail).
+count([],_,0).
+count([X|T],X,Y):- count(T,X,Z), Y is 1+Z.
+count([X1|T],X,Z):- X1\=X,count(T,X,Z).
+unique([],[]).
+unique(L,R) :- combine(L,[],R).
+checkmember(X,[X|_]).
+checkmember(X,[_|Y]):- checkmember(X,Y).
+combine([],R,R).
+combine([H|T],B,N):- checkmember(H,B), combine(T,B,N).
+combine([H|T],B,N):- combine(T,[H|B],N).
+
+
+112. LCM
+
+Ans)
+
+gcd(X,Y,G):-
+    X=Y,G=X.
+gcd(X,Y,G):-
+    X<Y,
+    Y1 is Y-X,
+    gcd(X,Y1,G).
+gcd(X,Y,G):-
+    X>Y,gcd(Y,X,G).
+lcm(X,Y,Z):-
+    gcd(X,Y,G),
+    Z is X*Y//G.
+
+
+
+
+
+113 Remo dupli
+
+Ans:
+
+re_dup([],[]).
+
+re_dup([H|T],R) :-
+    member(H,T),!,
+    re_dup(T,R).
+
+re_dup([H|T],[H|R]) :-
+    re_dup(T,R).
+
+
+27. Write a prolog program to find the sum of inverse of each number of n natural numbe
+Ans)
+
+
+onbyn(N,R):-
+    N>0,
+    R1 is R+ 1/N,
+    N1 is N-1,
+    onbyn(N1,R1);
+    write(R).
+
+
+

@@ -1,0 +1,7 @@
+program(X):-
+write('enter N: '),read(N),
+A is 0,
+B is 1,
+write(A),write(' '),write(B),
+fibo(N,A,B).
+
