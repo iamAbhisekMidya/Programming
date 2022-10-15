@@ -1,0 +1,274 @@
+class Sorting
+{     
+    public void bubble_sort(int a[], int n)
+    {
+        int i, j, temp;
+        
+        for(i=0;i<n-1;i++)
+        {
+            for(j=0;j<n-i-1;j++)
+            {
+                if(a[j]>a[j+1])
+                {
+                    temp=a[j];
+                    a[j]=a[j+1];
+                    a[j+1]=temp;
+                }
+            }
+        }
+    }
+    
+    public void modified_bubble_sort(int a[], int n)
+    {
+        int i, j, temp, flag=1;
+        
+        for(i=0;i<n-1&&flag==1;i++)
+        {
+            flag=0;
+            for(j=0;j<n-i-1;j++)
+            {   
+                if(a[j]>a[j+1])
+                {
+                    temp=a[j];
+                    a[j]=a[j+1];
+                    a[j+1]=temp;
+                    flag=1;
+                }
+            }
+        }
+    }
+    
+    public void insertion_sort(int a[], int n)
+    {
+        int i, j, x;
+        
+        for(i=1;i<n;i++)
+        {
+            x=a[i];
+            for(j=i-1;j>=0;j--)
+            {
+                if(a[j]>x)
+                    a[j+1]=a[j];
+                else
+                    break;    
+            }
+            a[j+1]=x;
+        }
+    }
+    
+    public void selection_sort(int a[], int n)
+    {
+        int i, j, min, temp;
+        
+        for(i=0;i<n-1;i++)
+        {
+            min=i;
+            for(j=i+1;j<n;j++)
+            {
+                if(a[min]>a[j])
+                    min=j;    
+            }
+            if(min!=i)
+            {
+                temp=a[min];
+                a[min]=a[i];
+                a[i]=temp;
+            }  
+        }
+    }
+    
+    public int partition(int a[], int left, int right)
+    {
+        int pos, t;
+        
+        pos=left;
+        while(left<=right)
+        {
+            while(a[pos]<=a[right]&&pos!=right)
+            {
+                right--;
+            }
+            if(pos==right)
+                return (pos);
+            else
+            {
+                t=a[pos];
+                a[pos]=a[right];
+                a[right]=t;
+                pos=right;
+            }
+            while(a[left]<=a[pos]&&pos!=left)
+            {
+                left++;
+            }
+            if(pos==left)
+                return (pos);
+            else
+            {
+                t=a[pos];
+                a[pos]=a[left];
+                a[left]=t;
+                pos=left;
+            }
+        }
+        return (pos);
+    }
+    
+    public void quick_sort_rc(int a[], int l, int r)
+    {
+        int i;
+               
+        if(l<r)
+        {   
+            i=partition(a, l, r);  
+            quick_sort_rc(a,l,(i-1));
+            quick_sort_rc(a, (i+1), r);
+        }  
+    }
+    
+    public void quick_sort(int a[], int n)
+    {
+        int lower[] = new int [n];
+        int upper[] = new int [n];
+        int pos,beg,end,top=-1;
+        
+	    if(n<=1)
+		    return;
+		    
+	    top=top+1;
+	    lower[top]=0;
+	    upper[top]=(n-1);
+	    while(top!=(-1))
+	    {
+		    beg=lower[top];
+		    end=upper[top];
+		    top=(top-1);
+		    pos=partition(a,beg,end);
+		    if((beg+1)<pos)
+		    {
+			    top=(top+1);
+			    lower[top]=beg;
+			    upper[top]=(pos-1);
+		    }
+		    if(end>(pos+1))
+		    {
+			    top=(top+1);
+			    lower[top]=(pos+1);
+			    upper[top]=end;
+		    }
+	    }	   
+    }
+    
+    public void merge(int a[], int low, int mid, int high)
+    {
+	    int b[] = new int[high];
+	    int i, j, k, h;
+	    
+	    i=low;               
+	    h=low;             
+	    k=(mid+1);         
+	    while(h<=mid && k<=high)
+	    {
+		    if(a[h]<=a[k])
+		    {
+			    b[i]=a[h];
+			    h++;
+		    }
+		    else
+		    {
+			    b[i]=a[k];
+			    k++;
+		    }
+		    i++;
+	    }
+	    if(h>mid)     
+	    {		
+		    for(j=k;j<=high;j++)
+		    {
+			    b[i]=a[j];
+			    i++;
+		    }
+	    }
+	    else
+	    {			
+		    for(j=h;j<=mid;j++)
+		    {
+			    b[i]=a[j];
+			    i++;
+		    }
+	    }	
+	    for(j=low;j<=high;j++)
+	    {
+		    a[j]=b[j];
+	    }
+    }
+    
+    public void merge_sort_rc(int a[], int low, int high)
+    {
+	    int mid;
+	    
+	    if(low<high)
+	    {
+		    mid=(low+high)/2;
+		    merge_sort_rc(a,low,mid);
+		    merge_sort_rc(a,mid+1,high);
+		    merge(a,low,mid,high);
+	    }	
+    }
+    
+    void merge_sort(int a[], int n)
+    {
+	    int b[] = new int [n];
+	    int i, j, k, m, l1, l2, u1, u2, size=1;
+	    
+	    while(size<n)
+	    {
+		    k=0;
+		    l1=0;
+		    while((l1+size)<n)
+		    {
+			    l2=l1+size;
+			    u1=l2-1;
+			    if((l2+size-1)<n)
+				    u2=(l2+size-1);
+			    else
+				    u2=n-1;
+			    i=l1;
+			    j=l2;
+			    while(i<=u1 && j<=u2)
+			    {
+				    if(a[i]<a[j])
+				    {
+					    b[k]=a[i];
+					    i++;
+				    }
+				    else
+				    {
+					    b[k]=a[j];
+					    j++;
+				    }
+				    k++;
+			    }
+			    while(i<=u1)
+			    {
+				    b[k]=a[i];
+				    k++;
+				    i++;
+			    }
+			    while(j<=u2)
+			    {
+				    b[k]=a[j];
+				    k++;
+				    j++;
+			    }
+			    l1=u2+1;	
+		    }
+		    for(m=0;m<k;m++)
+		    {
+			    a[m]=b[m];
+		    }
+		    size=size*2;
+	    }
+    } 
+}
+   
