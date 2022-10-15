@@ -1,0 +1,3 @@
+IMPORT: mysql -u username -p database_name < /path/to/file.sql
+EXPORT: mysqldump -u username -p databasename > filename.sql
+
